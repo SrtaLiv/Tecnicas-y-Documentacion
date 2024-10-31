@@ -67,8 +67,8 @@ public class AlmacenTestNG {
 
     @Parameters({"ingredient-count"})
     @BeforeClass
-    public void beforeClass(@Optional("2") int count) {
-        cantIngredientes = count;
+    public static void beforeClass() {
+        //cantIngredientes = count;
         /***Esto debería hacerse con datos reales desde algun origen*/
         listaTotal =  new  ArrayList<Ingrediente>();
         listaTotal.add( new Ingrediente("harina", "kg",  (int) (Math.random())));
@@ -76,8 +76,6 @@ public class AlmacenTestNG {
         listaTotal.add(  new Ingrediente("papa", "kg",  (int) (Math.random())));
         listaTotal.add(  new Ingrediente("huevo", "un",  (int) (Math.random())));
         listaTotal.add( new Ingrediente("fideos", "kg",  (int) (Math.random())));
-
-
     }
 
 

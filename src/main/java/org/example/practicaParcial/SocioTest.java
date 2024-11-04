@@ -32,7 +32,6 @@ public class SocioTest{
         socios.add(new Socio("Delfina", "Ferreyra", "234234234", 19));
         socios.add(new Socio("Olivia", "Todesco", "5983924", 19));
         socios.add(new Socio("Santi", "Llaurado", "45435524", 19));
-
     }
 
     //Comprobar que no pueden agregarse socios repetidos

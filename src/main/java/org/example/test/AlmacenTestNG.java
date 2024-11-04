@@ -48,14 +48,16 @@ public class AlmacenTestNG {
 
     @DataProvider
     public Object[] generarIngredientes() {
-	  /*List<Ingrediente>  listaTotal;
+	  List<Ingrediente>  listaTotal;
   /***Esto debería hacerse con datos reales desde algun origen*/
-	  /*listaTotal =  new  ArrayList<Ingrediente>();
+
+	  listaTotal =  new  ArrayList<Ingrediente>();
 	  listaTotal.add( new Ingrediente("harina", "kg",  (int) (Math.random())));
 	  listaTotal.add(  new Ingrediente("aceilte", "ltd",  (int) (Math.random())));
 	  listaTotal.add(  new Ingrediente("papa", "kg",  (int) (Math.random())));
 	listaTotal.add(  new Ingrediente("huevo", "un",  (int) (Math.random())));
-	listaTotal.add( new Ingrediente("fideos", "kg",  (int) (Math.random())));*/
+	listaTotal.add( new Ingrediente("fideos", "kg",  (int) (Math.random())));
+
         /** A continuacion se crea una lista de ingredientes al azar*/
         List<Ingrediente>  ingATestear = new ArrayList<Ingrediente>();
         for (int i=0; i< AlmacenTestNG.cantIngredientes;i++)

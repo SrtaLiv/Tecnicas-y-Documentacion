@@ -9,10 +9,12 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.TestFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ActividadTest {
 
@@ -100,6 +102,17 @@ public class ActividadTest {
 
     }
 
+    @Test
+    public void comprobarEdadMinimaAssert(){
+        for (int i = 0; i < actividad.getInscriptos().size(); i++){
+            if (actividad.getInscriptos().get(i).getPersona().getEdad() < 18){
+                assertThrows(Actividad.class(), EdadInsuficienteException)
+            }
+        }
+        Assert.assertTrue("Todos cumplen la edad minima!", true);
+
+    }
+
     @TestFactory
     public void comprobarEdadMinimaDinamico(){
        //implementar
@@ -120,11 +133,42 @@ public class ActividadTest {
             }
         }
         catch (CupoExcedidoException e){
-            Assert.assertTrue("Disparada", true);
+            System.out.println("No se lanzó la excepción antes de exceder el cupo");
+
+            Assert.assertTrue("Se disparó CupoExcedidoException como se esperaba", true);
         }
         catch (EdadInsuficienteException e) {
 
         }
+    }
+
+    //Comprobar que al intentar inscribir más usuarios del cupo permitido, se dispara la excepción CupoExcedidoException
+    @org.junit.Test
+    public void inscribirUsuarioThrow() throws CupoExcedidoException, EdadInsuficienteException {
+        while (actividad.getInscriptos().size() < actividad.getCupo()) {
+
+            if (actividad.getInscriptos().size() == actividad.getCupo()) {
+                assertThrows(EdadInsuficienteException.class, () -> {
+
+                }, "Excediste el cupo");
+                break;
+            }
+            actividad.inscribirSocio(new Socio("Oli", "Tod", "2123211", 19));
+
+       }
+    }
+
+    @org.junit.Test
+    public void inscribirUsuarioThrowGPT() throws EdadInsuficienteException, CupoExcedidoException {
+        // Llenamos el cupo al máximo permitido
+        while (actividad.getInscriptos().size() < actividad.getCupo()) {
+            actividad.inscribirSocio(new Socio("Oli", "Tod", "2123211", 19));
+        }
+
+        // Intentamos inscribir un usuario adicional y verificamos que se lanza CupoExcedidoException
+        assertThrows(CupoExcedidoException.class, () -> {
+            actividad.inscribirSocio(new Socio("Extra", "Socio", "123456", 20));
+        }, "Excediste el cupo");
     }
 
 }
